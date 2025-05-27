@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Port Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            margin: 40px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1.5px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .results {
+            margin-top: 30px;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        .results h2 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        .results p {
+            font-size: 18px;
+            line-height: 1.4;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Port Scanner Project!</h1>
+
+    <form method="POST">
+    <label for="target">Enter IP address or domain:</label>
+    <input type="text" id="target" name="target" required value="{{ target if target else '' }}">
+
+    <label for="mode">Select Scan Mode:</label>
+    <select name="mode" id="mode">
+        <option value="quick">Quick Scan (Common Ports)</option>
+        <option value="full">Full Scan (All 65535 Ports)</option>
+    </select>
+
+    <button type="submit">Scan</button>
+</form>
+
+
+    {% if result %}
+    <div class="results">
+        <h2>Scan Results:</h2>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+
+    {% if whois %}
+    <div class="results">
+        <h2>Whois Info:</h2>
+        <p>{{ whois }}</p>
+    </div>
+    {% endif %}
+    {% if headers %}
+<div class="results">
+    <h2>HTTP Header Info:</h2>
+    <p>{{ headers | safe }}</p>
+</div>
+{% endif %}
+
+</body>
+</html>
